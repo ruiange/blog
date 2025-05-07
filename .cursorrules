@@ -5,3 +5,4 @@
     需要包含功能：
     - 后台管理界面
     - 前台首页 文章列表页 文章详情页
+    项目集成了(@tdesign-vue-next/nuxt)[https://nuxt.com/modules/tdesign-vue-next],使用@tdesign-vue-next/nuxt开发后台管理页面
