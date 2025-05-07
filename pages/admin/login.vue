@@ -81,6 +81,11 @@
       <div class="bubble bubble1"></div>
       <div class="bubble bubble2"></div>
       <div class="bubble bubble3"></div>
+      <div class="bubble bubble4"></div>
+      <div class="bubble bubble5"></div>
+      <div class="bubble bubble6"></div>
+      <div class="bubble bubble7"></div>
+      <div class="bubble bubble8"></div>
     </div>
   </div>
 </template>
@@ -194,22 +199,22 @@
   .bubble {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.5;
-    filter: blur(2px);
+    opacity: 0.18;
+    filter: blur(4px);
     animation: float-bubble 8s ease-in-out infinite alternate;
   }
   .bubble1 {
     width: 320px;
     height: 320px;
-    background: linear-gradient(135deg, #0052d9 0%, #00bcd4 100%);
-    top: 10vh;
+    background: linear-gradient(135deg, #b3d8fd 0%, #e0f7fa 100%);
+    top: 8vh;
     right: 8vw;
     animation-delay: 0s;
   }
   .bubble2 {
     width: 180px;
     height: 180px;
-    background: linear-gradient(135deg, #00bcd4 0%, #36b37e 100%);
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2f0e6 100%);
     top: 60vh;
     right: 18vw;
     animation-delay: 2s;
@@ -217,11 +222,51 @@
   .bubble3 {
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, #fff 0%, #0052d9 100%);
+    background: linear-gradient(135deg, #fff 0%, #b3d8fd 100%);
     top: 40vh;
     right: 2vw;
-    opacity: 0.3;
+    opacity: 0.12;
     animation-delay: 1s;
+  }
+  .bubble4 {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #e0f7fa 0%, #fff 100%);
+    top: 20vh;
+    right: 25vw;
+    animation-delay: 3s;
+  }
+  .bubble5 {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #b2f0e6 0%, #fff 100%);
+    top: 75vh;
+    right: 5vw;
+    animation-delay: 4s;
+  }
+  .bubble6 {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #b3d8fd 0%, #e0f7fa 100%);
+    top: 30vh;
+    right: 15vw;
+    animation-delay: 2.5s;
+  }
+  .bubble7 {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2f0e6 100%);
+    top: 80vh;
+    right: 22vw;
+    animation-delay: 5s;
+  }
+  .bubble8 {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #fff 0%, #b3d8fd 100%);
+    top: 55vh;
+    right: 10vw;
+    animation-delay: 3.5s;
   }
   @keyframes float-bubble {
     0% {
