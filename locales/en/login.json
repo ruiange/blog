@@ -1,3 +1,15 @@
 {
-  "你好世界": "Hello, world"
+  "你好世界": "Hello World",
+  "登录": "Login",
+  "博客管理系统": "Blog Management System",
+  "欢迎使用博客后台管理系统": "Welcome to the Blog Admin System",
+  "请输入用户名": "Please enter username",
+  "请输入密码": "Please enter password",
+  "用户名": "Username",
+  "密码": "Password",
+  "记住账号": "Remember me",
+  "忘记密码": "Forgot password?",
+  "使用微信扫码登录": "Login with WeChat",
+  "使用手机号登录": "Login with Phone",
+  "登录到": "Login to"
 }
