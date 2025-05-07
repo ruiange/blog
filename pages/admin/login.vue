@@ -31,7 +31,7 @@
     </div>
     <div class="login-left">
       <div class="login-header">
-        <h2 class="main-title">登录到<br />博客管理系统</h2>
+        <h2 class="main-title">登录到<br />博客管理系统 </h2>
         <p class="subtitle">欢迎使用博客后台管理系统</p>
       </div>
       <t-form :data="formData" @submit="handleSubmit" class="login-form" :label-width="0">
