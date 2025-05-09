@@ -14,7 +14,7 @@
             :class="{ 'menu-item-active': item === activeMenu }"
             @click="menuClick(item)"
           >
-            首页
+            <i class="iconfont icon-home"></i>
           </div>
         </template>
       </div>
@@ -25,7 +25,12 @@
     <!-- 右侧内容区域：自适应宽度，包含顶部搜索栏、主内容和侧边栏 -->
     <div class="right-info">
       <!-- 顶部搜索栏 -->
-      <div class="top-box">搜索</div>
+      <div class="top-box">
+        <div class="search-container">
+          <i class="iconfont icon-search"></i>
+          <input type="text" placeholder="搜索..." class="search-input" />
+        </div>
+      </div>
       <!-- 右侧主体内容区域：使用flex布局 -->
       <div class="right-info-main">
         <!-- 页面内容插槽：用于显示不同页面的主要内容 -->
@@ -69,6 +74,7 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
+  
   // 菜单列表数据
   const MenuList = ref([]);
   // 当前激活的菜单项
@@ -150,6 +156,10 @@
         cursor: pointer;
         border: 1px solid #ffffff;
         box-sizing: border-box; /* 确保边框计入宽度 */
+        /* 菜单图标样式 */
+        .iconfont {
+          font-size: 20px;
+        }
         /* 悬停效果 */
         &:hover {
           background-color: #f5f5f5;
@@ -202,6 +212,33 @@
     align-items: center;
     padding: 0 20px;
     box-sizing: border-box; /* 确保内边距计入宽度 */
+  }
+  
+  /* 搜索容器样式 */
+  .search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    padding: 8px 15px;
+    width: 300px;
+  }
+  
+  /* 搜索图标样式 */
+  .search-container .iconfont {
+    font-size: 18px;
+    color: #666;
+    margin-right: 10px;
+  }
+  
+  /* 搜索输入框样式 */
+  .search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    color: #333;
   }
 
   /* 网站信息侧边栏：固定宽度 */
@@ -349,6 +386,11 @@
     /* 主容器无需右边框 */
     .main-container {
       border-right: none;
+    }
+    
+    /* 搜索容器宽度调整 */
+    .search-container {
+      width: 100%;
     }
   }
   
