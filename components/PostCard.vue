@@ -59,11 +59,12 @@ const navigateToPost = () => {
 <style scoped>
 .post-item {
   display: flex;
-  padding: 20px 0;
   border-bottom: 1px solid #eee;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
+  padding: 20px 20px;
+  box-sizing: border-box;
 }
 
 .post-cover {
@@ -83,14 +84,14 @@ const navigateToPost = () => {
 }
 
 .post-item:hover {
-  background-color: #f9f9f9;
+  background-color: var(--hover-bg);
   
   .post-cover img {
     transform: scale(1.05);
   }
   
   .post-title {
-    color: #0056b3;
+    color: var(--primary-color);
   }
   
   .read-more {

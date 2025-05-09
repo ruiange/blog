@@ -30,6 +30,14 @@
           <i class="iconfont icon-search"></i>
           <input type="text" placeholder="搜索..." class="search-input" />
         </div>
+        <!-- 主题切换按钮 -->
+        <div class="theme-toggle" @click="toggleDarkMode" :class="{'theme-toggle-dark': isDarkMode}">
+          <div class="toggle-track">
+            <i class="iconfont icon-sun toggle-icon-sun"></i>
+            <i class="iconfont icon-moon toggle-icon-moon"></i>
+          </div>
+          <div class="toggle-thumb"></div>
+        </div>
       </div>
       <!-- 右侧主体内容区域：使用flex布局 -->
       <div class="right-info-main">
@@ -75,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, onMounted, watch } from 'vue';
 
   // 菜单列表数据
   const MenuList = ref([]);
@@ -89,6 +97,43 @@
   const menuClick = (item: number) => {
     activeMenu.value = item;
   };
+
+  // 暗黑模式状态
+  const isDarkMode = ref(false);
+
+  // 切换暗黑模式
+  const toggleDarkMode = () => {
+    isDarkMode.value = !isDarkMode.value;
+    // 本地存储主题偏好
+    localStorage.setItem('darkMode', isDarkMode.value.toString());
+  };
+
+  // 根据暗黑模式状态更新DOM
+  watch(isDarkMode, (newValue) => {
+    if (newValue) {
+      document.documentElement.classList.add('dark-mode');
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+    }
+  });
+
+  // 初始化主题
+  onMounted(() => {
+    // 检查本地存储中的主题偏好
+    const storedDarkMode = localStorage.getItem('darkMode');
+    if (storedDarkMode === 'true') {
+      isDarkMode.value = true;
+      document.documentElement.classList.add('dark-mode');
+    } else if (storedDarkMode === null) {
+      // 如果未设置，检查系统偏好
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDarkMode) {
+        isDarkMode.value = true;
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'true');
+      }
+    }
+  });
 </script>
 
 <style scoped>
@@ -107,15 +152,15 @@
     display: flex;
     height: 100vh; /* 全屏高度 */
     overflow: hidden; /* 防止内容溢出 */
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    border-left: 1px solid var(--border-dark);
+    border-right: 1px solid var(--border-dark);
     box-sizing: border-box; /* 确保边框计入宽度 */
   }
 
   /* 左侧菜单样式：固定宽度，垂直布局 */
   .left-menu {
     width: 98px;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid var(--border-dark);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -123,6 +168,7 @@
     padding: 20px 0;
     flex-shrink: 0; /* 防止菜单被压缩 */
     box-sizing: border-box; /* 确保边框和内边距计入宽度 */
+    background-color: var(--bg-content);
     /* Logo样式 */
     .logo {
       width: 50px;
@@ -155,7 +201,7 @@
         justify-content: center;
         align-items: center;
         flex-shrink: 0;
-        color: #333;
+        color: var(--text-color);
         cursor: pointer;
         border: 1px solid rgba(0, 0, 0, 0);
         box-sizing: border-box; /* 确保边框计入宽度 */
@@ -165,20 +211,20 @@
         }
         /* 悬停效果 */
         &:hover {
-          background-color: #f5f5f5;
-          color: #333;
+          background-color: var(--hover-bg);
+          color: var(--text-color);
         }
         /* 点击效果 */
         &:active {
-          border: 1px solid #8c8c8c;
+          border: 1px solid var(--border-dark);
         }
       }
       /* 激活状态的菜单项样式 */
       .menu-item-active {
-        background-color: #333;
+        background-color: var(--primary-color);
         box-shadow: 0 2px 20px 0 rgba(0 0 0 / 0.2);
         color: #fff;
-        border: 1px solid #333;
+        border: 1px solid var(--primary-color);
       }
     }
   }
@@ -189,6 +235,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden; /* 防止内容溢出 */
+    background-color: var(--bg-content);
     /* 右侧主体内容区域：水平布局 */
     .right-info-main {
       display: flex;
@@ -202,26 +249,96 @@
     flex: 1; /* 填充剩余空间 */
     overflow-y: auto; /* 垂直方向可滚动 */
     overflow-x: hidden; /* 禁止水平滚动 */
-    padding: 20px;
+    //padding: 20px;
     box-sizing: border-box; /* 确保内边距计入宽度 */
+    background-color: var(--bg-content);
   }
 
   /* 顶部搜索区域 */
   .top-box {
     width: 100%;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border-dark);
     height: 80px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 20px;
     box-sizing: border-box; /* 确保内边距计入宽度 */
+    background-color: var(--header-bg);
+  }
+
+  /* 主题切换按钮 */
+  .theme-toggle {
+    position: relative;
+    width: 60px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    /* 轨道样式 */
+    .toggle-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+      box-sizing: border-box;
+    }
+    
+    /* 滑块样式 */
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+    
+    /* 太阳图标样式 */
+    .toggle-icon-sun {
+      font-size: 16px;
+      color: #FFD700; /* 金黄色 */
+      margin-left: 3px;
+    }
+    
+    /* 月亮图标样式 */
+    .toggle-icon-moon {
+      font-size: 16px;
+      color: #ccc;
+      margin-right: 3px;
+    }
+    
+    /* 暗色模式样式 */
+    &.theme-toggle-dark {
+      background-color: #e0e0e0;
+      
+      .toggle-thumb {
+        transform: translateX(32px);
+      }
+    }
+    
+    &:hover {
+      opacity: 0.9;
+    }
   }
 
   /* 搜索容器样式 */
   .search-container {
     display: flex;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: var(--hover-bg);
     border-radius: 20px;
     padding: 8px 15px;
     width: 300px;
@@ -230,7 +347,7 @@
   /* 搜索图标样式 */
   .search-container .iconfont {
     font-size: 18px;
-    color: #666;
+    color: var(--text-muted);
     margin-right: 10px;
   }
 
@@ -241,7 +358,7 @@
     outline: none;
     flex: 1;
     font-size: 14px;
-    color: #333;
+    color: var(--text-color);
   }
 
   /* 网站信息侧边栏：固定宽度 */
@@ -250,9 +367,10 @@
     min-width: 250px; /* 最小宽度确保不会太窄 */
     height: 100%;
     flex-shrink: 0; /* 防止被压缩 */
-    border-left: 1px solid #ccc;
+    border-left: 1px solid var(--border-dark);
     position: relative; /* 相对定位用于版权信息的绝对定位 */
     box-sizing: border-box; /* 确保边框计入宽度 */
+    background-color: var(--bg-content);
     /* 封面图样式 */
     .cover {
       width: 100%;
@@ -277,6 +395,7 @@
         position: absolute;
         bottom: -40px; /* 超出封面底部 */
         box-sizing: border-box; /* 确保边框计入宽度 */
+        background-color: var(--bg-content);
       }
       /* 头像样式 */
       .avatar {
@@ -297,18 +416,18 @@
       .user-name {
         font-size: 16px;
         font-weight: 700;
-        color: #333;
+        color: var(--text-color);
         margin-bottom: 20px;
       }
       /* 用户描述样式 */
       .user-desc {
         font-size: 13px;
-        color: #999;
+        color: var(--text-muted);
         margin-bottom: 20px;
       }
       /* 文章统计信息样式 */
       .post-info {
-        background-color: #f5f5f5;
+        background-color: var(--hover-bg);
         border-radius: 8px;
         padding: 10px 30px;
         width: 80%;
@@ -326,7 +445,7 @@
           /* 标签名称样式 */
           .name {
             font-style: normal;
-            color: #999;
+            color: var(--text-muted);
             font-size: 13px;
             margin-bottom: 5px;
           }
@@ -334,7 +453,7 @@
           .num {
             font-size: 18px;
             font-weight: 700;
-            color: #333;
+            color: var(--text-color);
           }
         }
       }
@@ -344,9 +463,9 @@
       position: absolute;
       bottom: 0;
       font-size: 13px;
-      color: #999;
+      color: var(--text-muted);
       height: 50px;
-      border-top: 1px solid #ccc;
+      border-top: 1px solid var(--border-dark);
       width: 100%;
       display: flex;
       align-items: center;
@@ -405,7 +524,7 @@
     }
 
     .content-container {
-      padding: 0 10px;
+      padding: 10px;
     }
   }
 </style>
