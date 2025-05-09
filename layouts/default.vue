@@ -34,7 +34,9 @@
       <!-- 右侧主体内容区域：使用flex布局 -->
       <div class="right-info-main">
         <!-- 页面内容插槽：用于显示不同页面的主要内容 -->
-        <div class="content-container"><slot></slot></div>
+        <div class="content-container">
+
+          <slot></slot></div>
         <!-- 网站信息侧边栏：固定宽度，显示用户信息和版权信息 -->
         <div class="site-info">
           <!-- 封面图区域 -->
