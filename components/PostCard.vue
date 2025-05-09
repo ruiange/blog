@@ -51,7 +51,7 @@ const props = defineProps<{
 
 // 文章导航方法
 const navigateToPost = () => {
-  // 导航到文章详情页，可以使用Nuxt的导航
+  // 导航到文章详情页，使用Nuxt的导航
   navigateTo(`/post/${props.post.id}`);
 };
 </script>

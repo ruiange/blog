@@ -249,7 +249,7 @@
     flex: 1; /* 填充剩余空间 */
     overflow-y: auto; /* 垂直方向可滚动 */
     overflow-x: hidden; /* 禁止水平滚动 */
-    //padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box; /* 确保内边距计入宽度 */
     background-color: var(--bg-content);
   }
