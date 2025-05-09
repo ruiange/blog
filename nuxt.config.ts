@@ -12,4 +12,18 @@ export default defineNuxtConfig({
   css: [
     '~/assets/css/main.css'
   ],
+  app: {
+    head: {
+      meta: [
+        {
+          name: 'viewport',
+          content: 'width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no'
+        }
+        // 如果你还有其他全局 meta，也可以继续写在这里
+      ],
+      // 你也可以在这里统一添加 title、link、script 等
+      // title: 'My Nuxt3 App',
+      // link: [ { rel: 'icon', href: '/favicon.ico' } ]
+    }
+  }
 })

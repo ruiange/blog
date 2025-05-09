@@ -17,7 +17,7 @@
     </div>
 
     <div class="right-info">
-      <div>搜索</div>
+      <div class="top-box">搜索</div>
       <div class="right-info-main">
         <div style="width: 100%"><slot></slot></div>
         <div class="site-info">
@@ -128,6 +128,14 @@
     .right-info-main {
       display: flex;
     }
+  }
+  .top-box{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
   }
   .site-info {
     width: 300px;
