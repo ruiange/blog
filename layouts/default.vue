@@ -35,8 +35,8 @@
       <div class="right-info-main">
         <!-- 页面内容插槽：用于显示不同页面的主要内容 -->
         <div class="content-container">
-
-          <slot></slot></div>
+          <slot></slot>
+        </div>
         <!-- 网站信息侧边栏：固定宽度，显示用户信息和版权信息 -->
         <div class="site-info">
           <!-- 封面图区域 -->
@@ -76,7 +76,7 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
-  
+
   // 菜单列表数据
   const MenuList = ref([]);
   // 当前激活的菜单项
@@ -98,7 +98,7 @@
     padding: 0;
     overflow-x: hidden;
   }
-  
+
   /* 主容器样式：自适应宽度，最大宽度1400px，居中显示 */
   .main-container {
     width: 100%;
@@ -128,7 +128,7 @@
       width: 50px;
       height: 50px;
     }
-    /* 菜单内容区域：可滚动 */
+    /* 菜单内容区域：可滚动但隐藏滚动条 */
     .left-menu-content {
       height: 70%;
       overflow-y: auto; /* 垂直方向可滚动 */
@@ -138,10 +138,11 @@
       flex-direction: column;
       padding: 20px 0;
       box-sizing: border-box; /* 确保内边距计入宽度 */
-      /* 自定义滚动条样式 */
+      /* 隐藏滚动条但保持可滚动功能 */
+      -ms-overflow-style: none; /* IE 和 Edge */
+      scrollbar-width: none; /* Firefox */
       &::-webkit-scrollbar {
-        width: 2px;
-        height: 20px;
+        display: none; /* Chrome, Safari, Opera */
       }
       /* 菜单项样式 */
       .menu-item {
@@ -156,7 +157,7 @@
         flex-shrink: 0;
         color: #333;
         cursor: pointer;
-        border: 1px solid #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0);
         box-sizing: border-box; /* 确保边框计入宽度 */
         /* 菜单图标样式 */
         .iconfont {
@@ -201,12 +202,12 @@
     flex: 1; /* 填充剩余空间 */
     overflow-y: auto; /* 垂直方向可滚动 */
     overflow-x: hidden; /* 禁止水平滚动 */
-    padding: 0 20px; /* 左右内边距 */
+    padding: 20px;
     box-sizing: border-box; /* 确保内边距计入宽度 */
   }
 
   /* 顶部搜索区域 */
-  .top-box{
+  .top-box {
     width: 100%;
     border-bottom: 1px solid #ccc;
     height: 80px;
@@ -215,7 +216,7 @@
     padding: 0 20px;
     box-sizing: border-box; /* 确保内边距计入宽度 */
   }
-  
+
   /* 搜索容器样式 */
   .search-container {
     display: flex;
@@ -225,14 +226,14 @@
     padding: 8px 15px;
     width: 300px;
   }
-  
+
   /* 搜索图标样式 */
   .search-container .iconfont {
     font-size: 18px;
     color: #666;
     margin-right: 10px;
   }
-  
+
   /* 搜索输入框样式 */
   .search-input {
     border: none;
@@ -353,7 +354,7 @@
       box-sizing: border-box; /* 确保边框计入宽度 */
     }
   }
-  
+
   /* 响应式布局 */
   /* 中等屏幕：优先隐藏左侧菜单 (1200px以下) */
   @media screen and (max-width: 1200px) {
@@ -361,48 +362,48 @@
     .left-menu {
       display: none;
     }
-    
+
     /* 主容器无需左边框 */
     .main-container {
       border-left: none;
     }
   }
-  
+
   /* 小屏幕：隐藏网站信息侧边栏 (768px以下) */
   @media screen and (max-width: 768px) {
     /* 隐藏网站信息侧边栏 */
     .site-info {
       display: none;
     }
-    
+
     /* 右侧主体内容占满宽度 */
     .right-info-main {
       flex-direction: column;
     }
-    
+
     /* 内容区域占满宽度 */
     .content-container {
       width: 100%;
     }
-    
+
     /* 主容器无需右边框 */
     .main-container {
       border-right: none;
     }
-    
+
     /* 搜索容器宽度调整 */
     .search-container {
       width: 100%;
     }
   }
-  
+
   /* 超小屏幕：优化顶部搜索栏 (480px以下) */
   @media screen and (max-width: 480px) {
     .top-box {
       height: 60px;
       padding: 0 10px;
     }
-    
+
     .content-container {
       padding: 0 10px;
     }
