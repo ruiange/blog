@@ -6,6 +6,11 @@
       </h2>
     </div>
 
+    <div class="tag">
+      <i class="iconfont icon-bookmark"></i>
+      最新发布
+    </div>
+
     <!-- 文章列表区域 - 移除滚动容器 -->
     <div class="post-list">
       <div v-if="displayPosts.length > 0" class="posts-container">
@@ -337,6 +342,20 @@
         margin-left: 8px;
       }
     }
+  }
+
+  .tag{
+    padding: 6px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    color: #fff;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85px;
   }
 
   .post-list {
