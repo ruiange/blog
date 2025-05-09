@@ -3,6 +3,12 @@
 
     <!-- 文章封面图 -->
     <div class="post-cover" :style="`background-image: url('${post.cover || 'https://halo.ruiange.com/themes/theme-iemo/assets/images/cover-author.jpg'}')`">
+      <!-- 返回按钮 -->
+      <div class="back-button" @click="goBack">
+        <i class="iconfont icon-arrow-left"></i>
+        <span>返回</span>
+      </div>
+      
       <!-- 文章头部：标题、时间、分类 -->
       <div class="post-header">
         <div class="post-meta">
@@ -65,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
@@ -102,7 +108,10 @@ const contentParagraphs = ref<string[]>([]);
 // 相关文章
 const relatedPosts = ref<Post[]>([]);
 
-
+// 返回上一页
+const goBack = () => {
+  router.back();
+};
 
 // 导航到其他文章
 const navigateToPost = (id: number) => {
@@ -191,11 +200,15 @@ const fetchRelatedPosts = () => {
   ];
 };
 
-
+// 监听路由变化，回到顶部
+watch(() => route.params.id, () => {
+  fetchPostData();
+}, { immediate: true });
 
 // 在组件挂载时获取数据
 onMounted(() => {
-  fetchPostData();
+  // 路由变化已经会触发数据获取，这里可以保留也可以移除
+  // fetchPostData();
 });
 </script>
 
@@ -203,6 +216,32 @@ onMounted(() => {
 .post-detail {
   margin: 0;
 }
+
+/* 返回按钮样式 */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.back-button .iconfont {
+  font-size: 16px;
+  margin-right: 5px;
+}
+
 .post-cover {
   width: 100%;
   height: 350px;
@@ -389,8 +428,6 @@ onMounted(() => {
   font-size: 13px;
   color: var(--text-muted);
 }
-
-
 
 /* 媒体查询 - 移动设备适配 */
 @media (max-width: 768px) {

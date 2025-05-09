@@ -4,7 +4,7 @@
     <!-- 左侧菜单区域：固定宽度，包含logo和导航菜单 -->
     <div class="left-menu">
       <!-- 网站logo -->
-      <img :src="logoUrl" alt="logo" class="logo" />
+      <img :src="logoUrl" alt="logo" class="logo" @click="navigateToHome" />
       <!-- 滚动菜单容器 -->
       <div class="left-menu-content">
         <template v-for="item in 20">
@@ -84,6 +84,9 @@
 
 <script setup lang="ts">
   import { ref, onMounted, watch } from 'vue';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   // 菜单列表数据
   const MenuList = ref([]);
@@ -96,6 +99,11 @@
   // 菜单点击事件处理函数
   const menuClick = (item: number) => {
     activeMenu.value = item;
+  };
+
+  // 导航到首页
+  const navigateToHome = () => {
+    router.push('/');
   };
 
   // 暗黑模式状态
@@ -173,6 +181,11 @@
     .logo {
       width: 50px;
       height: 50px;
+      cursor: pointer; /* 添加鼠标指针样式 */
+      transition: transform 0.3s ease; /* 添加过渡效果 */
+    }
+    .logo:hover {
+      transform: scale(1.1); /* 悬停时放大效果 */
     }
     /* 菜单内容区域：可滚动但隐藏滚动条 */
     .left-menu-content {

@@ -23,6 +23,18 @@ export default defineNuxtConfig({
       // 你也可以在这里统一添加 title、link、script 等
       // title: 'My Nuxt3 App',
       // link: [ { rel: 'icon', href: '/favicon.ico' } ]
+    },
+    // Nuxt 3中正确的页面过渡配置位置
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in'
+    }
+  },
+  // 路由选项配置
+  routeRules: {
+    // 所有路由都应用这个规则
+    '/**': { 
+      prerender: false 
     }
   }
 })
